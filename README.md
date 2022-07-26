@@ -4,7 +4,7 @@
 # Installation
 ## Copy
 - Copy the folder `libyara/fleur` in `libyara`
-- Copy the folder `libyara/modules/araygrass` in `araygrass`
+- Copy the folder `libyara/modules/araygrass` in `libyara/modules`
 
 ## Modify `libyara/Makefile.am`
 - Add `modules/araygrass/araygrass.c` to the `MODULES` variable:
