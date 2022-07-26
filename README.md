@@ -6,7 +6,7 @@
 - Copy the folder `libyara/fleur` in `libyara`
 - Copy the folder `libyara/modules/araygrass` in `araygrass`
 
-## Modify `libyara/modules/modules_list`
+## Modify `libyara/Makefile.am`
 - Add `modules/araygrass/araygrass.c` to the `MODULES` variable:
 ```
 MODULES += modules/araygrass/araygrass.c
