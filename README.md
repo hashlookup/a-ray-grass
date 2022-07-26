@@ -101,3 +101,9 @@ It's especially usefull to avoid bumping into the same file again, and can come 
 ## Partial hashing
 Remember that `yara`'s `hash` modules support hashing parts of file, therefore it is totatally doable to only store the hash of say the first 2K of each files.
 Hashlookup team is working on such dataset but it is not public ATM.
+
+# Acknowledgment
+
+![](./img/cef.png)
+
+The project has been co-funded by CEF-TC-2020-2 - 2020-EU-IA-0260 - JTAN - Joint Threat Analysis Network.
