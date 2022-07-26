@@ -1,5 +1,5 @@
 # a-ray-grass
-`a-ray-grass` is a yara module that provides support for DCSO format bloom filters in yara. In the context of hashlookup, it allows quickly discard known files "pour séparer le grain de l\'ivraie".
+`a-ray-grass` is a yara module that provides support for DCSO format bloom filters in yara. In the context of [hashlookup](https://hashlookup.io), it allows quickly discard known files "pour séparer le grain de l\'ivraie".
 
 # Installation
 ## Copy
