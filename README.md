@@ -77,11 +77,19 @@ import "hash"
 rule HashlookupMatching
 {
     condition:
-        araygrass.check_string(hash.sha1(0, filesize)) == 1
+        araygrass.check_string(hash.sha1(0, filesize), 1) == 1
 }
 
 ```
-In this instance, each file is fully hashed with SHA1, then checked against hashlookup's filter.
+In this instance, each file is fully hashed with SHA1, then checked against hashlookup's filter:
+```shell
+$./yara hashlookup-sha1.yar -r /usr/bin
+Hashlookup /usr/bin/ctanify
+Hashlookup /usr/bin/qdoc
+Hashlookup /usr/bin/ps2pdfwr
+Hashlookup /usr/bin/ubuntu-security-status
+...
+```
 One can recompile the module to point to the right filter but consider copying/linking to get more flexibilty.
 
 ## Storing already processed files
@@ -93,7 +101,7 @@ import "hash"
 rule Hashlookup
 {
     condition:
-        araygrass.check_string(hash.sha1(0, filesize)) == 1
+        araygrass.check_string(hash.sha1(0, filesize), 1) == 1
 }
 ```
 It's especially usefull to avoid bumping into the same file again, and can come handy when combined with other conditions ;)
