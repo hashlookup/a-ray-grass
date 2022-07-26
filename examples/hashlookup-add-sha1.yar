@@ -4,5 +4,5 @@ import "hash"
 rule Hashlookup
 {
     condition:
-        araygrass.add_string(hash.sha1(0, filesize)) == 0
+        araygrass.add_string(hash.sha1(0, filesize), 1) == 0
 }
