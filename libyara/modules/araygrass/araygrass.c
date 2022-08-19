@@ -39,7 +39,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define BF_PATH_OUT "/home/jlouis/Git/yara/test-out.bloom"
 
 // BloomFilter global variable
-BloomFilter *bf;
+BloomFilter bf;
 
 char* strtoupper(char* s) {
   assert(s != NULL);
@@ -56,12 +56,12 @@ char* strtoupper(char* s) {
 define_function(check_string)
 {
   SIZED_STRING* s = sized_string_argument(1);
-  int64_t topupperflag = integer_argument(1);
+  int64_t topupperflag = integer_argument(2);
   int test = 0;
   if (topupperflag == (int64_t)1) {
-    test = Check(bf, strtoupper(s->c_string), s->length);
+    test = fleur_check(&bf, strtoupper(s->c_string), s->length);
   }else{
-    test = Check(bf, s->c_string, s->length);
+    test = fleur_check(&bf, s->c_string, s->length);
   }
 
   return_integer(test);
@@ -70,12 +70,12 @@ define_function(check_string)
 define_function(add_string)
 {
   SIZED_STRING* s = sized_string_argument(1);
-  int64_t topupperflag = integer_argument(1);
+  int64_t topupperflag = integer_argument(2);
   int test = 0;
   if (topupperflag ==  (int64_t)1) {
-    test = Add(bf, strtoupper(s->c_string), s->length);
+    test = fleur_add(&bf, strtoupper(s->c_string), s->length);
   }else{
-    test = Add(bf, s->c_string, s->length);
+    test = fleur_add(&bf, s->c_string, s->length);
   }
 
   return_integer(test);
@@ -88,7 +88,7 @@ int module_initialize(YR_MODULE* module)
       exit(EXIT_FAILURE);
   }
 
-  bf = BloomFilterFromFile(in);
+  bf = fleur_bloom_filter_from_file(in);
   fclose(in);
 
   return ERROR_SUCCESS;
@@ -97,18 +97,17 @@ int module_initialize(YR_MODULE* module)
 
 int module_finalize(YR_MODULE* module)
 {
-  if(bf->modified == 1){
+  if(bf.modified == 1){
     printf("saving\n");
     FILE* out; 
     out = fopen(BF_PATH_OUT, "wb");
     if (out == NULL) {
       return EXIT_FAILURE;
     }
-    BloomFilterToFile(bf, out);
+    fleur_bloom_filter_to_file(&bf, out);
     fclose(out);
   }
-  free(bf->v);
-  free(bf->Data);
+  free(bf.v);
   return ERROR_SUCCESS;
 }
 
